@@ -26,7 +26,7 @@ def find_original_number(a, b):
             return candidate
 
 # 예제
-a = "0110"
-b = "102"
+a = input()
+b = input()
 result = find_original_number(a, b)
 print(result)  # 출력: N의 값
