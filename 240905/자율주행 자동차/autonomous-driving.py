@@ -16,12 +16,18 @@ def turn_left(d):
     else:
         return d - 1
 
+def turn_right(d):
+    if d == 3:
+        return 0
+    else:
+        return d + 1
+    
 graph[x][y] = 2
 ans = 1
 
 while True:
-    turn_cnt += 1
     if turn_cnt >= 5:
+        d = turn_right(d)
         nx = x - dx[d]
         ny = y - dy[d]
         if graph[nx][ny] == 2:
@@ -31,6 +37,7 @@ while True:
         else:
             break
     d = turn_left(d)
+    turn_cnt += 1
     nx = x + dx[d]
     ny = y + dy[d]
     if graph[nx][ny] == 0:
