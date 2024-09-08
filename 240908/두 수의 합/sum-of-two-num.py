@@ -11,7 +11,7 @@ for i in range(len(arr)):
 
 for i in range(n):
     if k - arr[i] in numbers:
-        ans += numbers[k-arr[i]]
         numbers[arr[i]] -= 1
+        ans += numbers[k-arr[i]]
 
 print(ans)
