@@ -139,7 +139,7 @@ for _ in range(k):
 
     if len(array) == 0:
         continue
-    array.sort(key = lambda x: (-x[0], x[1], -x[3], -x[2]))
+    array.sort(key = lambda x: (-x[0], x[1], x[3], x[2]))
     value, num, x, y = array[0]
     if num == 1: 
         turn90(x, y, 1, True)
