@@ -18,8 +18,8 @@ ey -= 1
 graph[ex][ey] = -2 # 탈출구
 ans = 0
 
-dx = [-1, 0, 1, 0]
-dy = [0, 1, 0, -1]
+dx = [-1, 1, 0, 0]
+dy = [0, 0, 1, -1]
 
 def move():
     global ans
@@ -41,7 +41,6 @@ def move():
         if len(temp) == 0:
             people.append((x, y))
         else:
-            temp.sort(key = lambda x: (x[0], x[1]))
             tx, ty = temp[0]
             ans += (abs(x-tx) + abs(y-ty))
             if tx == ex and ty == ey: # 탈출
@@ -101,6 +100,8 @@ for _ in range(k):
     if len(people) == 0:
         break
     move()
+    if len(people) == 0:
+        break
     find()
 
 print(ans)
