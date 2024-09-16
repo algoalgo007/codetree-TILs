@@ -45,7 +45,8 @@ def move():
             ans += (abs(x-tx) + abs(y-ty))
             if tx == ex and ty == ey: # 탈출
                 continue
-            people.append((tx, ty))
+            else:
+                people.append((tx, ty))
 
 def find():
     global ex, ey
@@ -68,30 +69,38 @@ def find():
     size, sx, sy = temp[0]
     tx, ty = sx + size, sy + size
     length = len(people)
+    check = deque()
+    check2 = []
     for i in range(length):
         px, py = people.popleft()
         if sx <= px <= tx and sy <= py <= ty:
-            graph[px][py] = -1
+            check.append((px, py))
         else:
             people.append((px, py))
         
     tempGraph = [[0] * n for _ in range(n)]
     idx = sx
+    row = 0
     for j in range(sy, ty + 1):
         tt = []
         for i in range(tx, sx - 1, -1):
-            tt.append(graph[i][j])
+            tt.append((graph[i][j], i, j))
         for l in range(len(tt)):
-            tempGraph[idx][sy + l] = tt[l]
+            val, a, b = tt[l]
+            tempGraph[idx][sy + l] = val
+            ll = len(check)
+            for o in range(ll):
+                aa, bb = check.popleft()
+                if aa == a and bb == b:
+                    people.append((idx, sy + l))
+                else:
+                    check.append((aa, bb))
         idx += 1
     for i in range(sx, tx + 1):
         for j in range(sy, ty + 1):
             if tempGraph[i][j] >= 1:
                 tempGraph[i][j] -= 1
             graph[i][j] = tempGraph[i][j]
-            if graph[i][j] == -1:
-                people.append((i, j))
-                graph[i][j] = 0
             if graph[i][j] == -2:
                 ex = i
                 ey = j
