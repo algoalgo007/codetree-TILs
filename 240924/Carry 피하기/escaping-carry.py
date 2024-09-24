@@ -17,7 +17,11 @@ def check(temp):
         maximum = max(maximum, len(tVal))
     for i in range(1, maximum + 1):
         val = 0
+        if not flag:
+            break
         for j in range(len(array)):
+            if not flag:
+                break
             if len(array[j]) >= i:
                 val += int(array[j][i-1])
                 if val >= 10:
