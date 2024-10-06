@@ -24,10 +24,10 @@ for _ in range(m):
   graph[a][b].append(c)
 
 def counterCCW(dir):
-  if dir == 0:
-    return 7
+  if dir == 7:
+    return 0
   else:
-    return dir - 1
+    return dir + 1
   
 def permC(cnt, sx, sy, count, visited):
   if cnt == 3:
@@ -112,4 +112,4 @@ ans = 0
 for i in range(4):
   for j in range(4):
     ans += len(graph[i][j])
-print(ans + 1)
+print(ans)
