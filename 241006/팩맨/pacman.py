@@ -6,8 +6,8 @@ smell = [[0] * 4 for _ in range(4)]
 move = []
 visited = [[False] * 4 for _ in range(4)]
 
-dx = [0, -1, -1, -1, 0, 1, 1, 1]
-dy = [-1, -1, 0, 1, 1, 1, 0, -1]
+dx = [-1, -1, 0, 1, 1, 1, 0, -1]
+dy = [0, -1, -1, -1, 0, 1, 1, 1]
 ddx = [-1, 0, 1, 0]
 ddy = [0, -1, 0, 1]
 array = [1, 2, 3, 4]
@@ -112,4 +112,4 @@ ans = 0
 for i in range(4):
   for j in range(4):
     ans += len(graph[i][j])
-print(ans)
+print(ans + 1)
