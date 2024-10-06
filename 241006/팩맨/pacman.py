@@ -90,9 +90,6 @@ for _ in range(s):
   move.sort(key = lambda x: (-x[1], x[0]))
   path, aa = move[0]
   path = str(path)
-  if len(graph[sx][sy]) > 0:
-    graph[sx][sy].clear()
-    smell[sx][sy] = 3
   for i in range(len(path)):
     num = int(path[i]) - 1
     sx += ddx[num]
