@@ -67,15 +67,19 @@ def find():
                         ty = ny
                 temp[x][y] = cnt + graph[x][y]
     maximum = -1
-    mx = 0
-    my = 0
+    tPos = []
     for i in range(n):
         for j in range(n):
             if temp[i][j] > maximum:
                 maximum = max(temp[i][j], maximum)
-                mx = i
-                my = j
+    for i in range(n):
+        for j in range(n):
+            if temp[i][j] == maximum:
+                tPos.append((i, j))
+    tPos.sort(key = lambda x: (x[0], x[1]))
+    mx, my = tPos[0]
     medi[mx][my] = (c + 1)
+    graph[mx][my] = 0
     for i in range(4):
         tx = mx
         ty = my
