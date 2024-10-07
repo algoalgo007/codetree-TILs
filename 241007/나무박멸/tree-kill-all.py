@@ -47,6 +47,11 @@ def produce():
 
 def find():
     temp = [[0] * n for _ in range(n)]
+    for i in range(n):
+        for j in range(n):
+            if graph[i][j] == -1:
+                temp[i][j] = -1
+
     for x in range(n):
         for y in range(n):
             if graph[x][y] > 0: # 나무
@@ -61,23 +66,19 @@ def find():
                             break
                         if graph[nx][ny] == -1:
                             break
+                        if graph[nx][ny] == 0:
+                            break
                         if graph[nx][ny] > 0:
                             cnt += graph[nx][ny]
                         tx = nx
                         ty = ny
                 temp[x][y] = cnt + graph[x][y]
-    maximum = -1
     tPos = []
     for i in range(n):
         for j in range(n):
-            if temp[i][j] > maximum:
-                maximum = max(temp[i][j], maximum)
-    for i in range(n):
-        for j in range(n):
-            if temp[i][j] == maximum:
-                tPos.append((i, j))
-    tPos.sort(key = lambda x: (x[0], x[1]))
-    mx, my = tPos[0]
+            tPos.append((temp[i][j], i, j))
+    tPos.sort(key = lambda t: (-t[0], t[1], t[2]))
+    val, mx, my = tPos[0]
     medi[mx][my] = (c + 1)
     graph[mx][my] = 0
     for i in range(4):
@@ -89,10 +90,16 @@ def find():
             if nx < 0 or ny < 0 or nx >= n or ny >= n:
                 break
             if graph[nx][ny] == -1:
+                medi[nx][ny] = (c + 1)
+                break
+            if graph[nx][ny] == 0:
+                medi[nx][ny] = (c + 1)
                 break
             graph[nx][ny] = 0
             medi[nx][ny] = (c + 1)
-    return maximum
+            tx = nx
+            ty = ny
+    return val
 
 def time():
     for i in range(n):
