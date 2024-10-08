@@ -96,61 +96,97 @@ for _ in range(k):
             x5, y5 = tx5, ty5
             direction(x4, y4, di)
         else: # 아래로 이동 불가능 한 경우
-            tx1, ty1 = x1 + 1, y1 - 1
-            tx2, ty2 = x2 + 1, y2 - 1
-            tx3, ty3 = x3 + 1, y3 - 1
-            tx4, ty4 = x4 + 1, y4 - 1
-            tx5, ty5 = x5 + 1, y5 - 1
-            if ty1 >= 0 and tx2 < r: # 왼쪽 아래로 이동 가능한 경우
-                if (graph[tx1][ty1] == 0 and graph[tx2][ty2] == 0 and graph[tx5][ty5] == 0
-                        and graph[tx1-1][ty1] == 0 and graph[tx2-1][ty2] == 0 and graph[tx5-1][ty5] == 0):  # 서쪽 이동 가능
+            tx1, ty1 = x1, y1
+            tx2, ty2 = x2, y2
+            tx3, ty3 = x3, y3
+            tx4, ty4 = x4, y4
+            tx5, ty5 = x5, y5
+            pick = False
+            while True: # 좌측 아래 이동
+                tx1, ty1 = tx1 + 1, ty1 - 1
+                tx2, ty2 = tx2 + 1, ty2 - 1
+                tx3, ty3 = tx3 + 1, ty3 - 1
+                tx4, ty4 = tx4 + 1, ty4 - 1
+                tx5, ty5 = tx5 + 1, ty5 - 1
+                di = turnCC(di)
+                direction(tx4, tx4, di)
+                if ty1 < 0 or tx2 >= r: # 좌측 끝까지 갔는데도 못정한 경우
+                    tx1, ty1 = tx1 - 1, ty1 + 1
+                    tx2, ty2 = tx2 - 1, ty2 + 1
+                    tx3, ty3 = tx3 - 1, ty3 + 1
+                    tx4, ty4 = tx4 - 1, ty4 + 1
+                    tx5, ty5 = tx5 - 1, ty5 + 1
+                    di = turnC(di)
+                    direction(tx4, tx4, di)
+                    break
+                if not inbound(tx1, ty1, tx2, ty2, tx3, ty3, tx4, ty4, tx5, ty5):
+                    continue
+                if (graph[tx1][ty1] == 0 and graph[tx2][ty2] == 0 and graph[tx5][ty5] == 0 and graph[tx1 - 1][ty1] == 0):  # 서쪽 이동 가능
                     x1, y1 = tx1, ty1
                     x2, y2 = tx2, ty2
                     x3, y3 = tx3, ty3
                     x4, y4 = tx4, ty4
                     x5, y5 = tx5, ty5
-                    di = turnCC(di)
+                    pick = True
+                else:
+                    tx1, ty1 = tx1 - 1, ty1 + 1
+                    tx2, ty2 = tx2 - 1, ty2 + 1
+                    tx3, ty3 = tx3 - 1, ty3 + 1
+                    tx4, ty4 = tx4 - 1, ty4 + 1
+                    tx5, ty5 = tx5 - 1, ty5 + 1
+                    di = turnC(di)
+                    direction(tx4, tx4, di)
+                    break
+            if not pick:
+                tx1, ty1 = x1, y1
+                tx2, ty2 = x2, y2
+                tx3, ty3 = x3, y3
+                tx4, ty4 = x4, y4
+                tx5, ty5 = x5, y5
+                while True: # 우측 아래 이동
+                    tx1, ty1 = tx1 + 1, ty1 + 1
+                    tx2, ty2 = tx2 + 1, ty2 + 1
+                    tx3, ty3 = tx3 + 1, ty3 + 1
+                    tx4, ty4 = tx4 + 1, ty4 + 1
+                    tx5, ty5 = tx5 + 1, ty5 + 1
+                    di = turnC(di)
                     direction(x4, y4, di)
-                else: # 동쪽 아래로 이동
-                    tx1, ty1 = x1 + 1, y1 + 1
-                    tx2, ty2 = x2 + 1, y2 + 1
-                    tx3, ty3 = x3 + 1, y3 + 1
-                    tx4, ty4 = x4 + 1, y4 + 1
-                    tx5, ty5 = x5 + 1, y5 + 1
-                    if ty3 < c and tx2 < r: # 동쪽 이동 가능한 경우
-                        if (graph[tx3][ty3] == 0 and graph[tx2][ty2] == 0 and graph[tx5][ty5] == 0
-                            and graph[tx3-1][ty3] == 0 and graph[tx2-1][ty2] == 0 and graph[tx5-1][ty5] == 0):  # 동쪽 이동 가능
-                            x1, y1 = tx1, ty1
-                            x2, y2 = tx2, ty2
-                            x3, y3 = tx3, ty3
-                            x4, y4 = tx4, ty4
-                            x5, y5 = tx5, ty5
-                            di = turnC(di)
-                            direction(x4, y4, di)
-                        else: # 동쪽 아래로 이동 불가능 한 경우
-                            break
-                    else:
+                    if ty3 >= c or tx2 >= r:
+                        tx1, ty1 = tx1 - 1, ty1 - 1
+                        tx2, ty2 = tx2 - 1, ty2 - 1
+                        tx3, ty3 = tx3 - 1, ty3 - 1
+                        tx4, ty4 = tx4 - 1, ty4 - 1
+                        tx5, ty5 = tx5 - 1, ty5 - 1
+                        di = turnCC(di)
+                        direction(tx4, tx4, di)
                         break
-            else: # 서쪽 아래로 불가능
-                tx1, ty1 = x1 + 1, y1 + 1
-                tx2, ty2 = x2 + 1, y2 + 1
-                tx3, ty3 = x3 + 1, y3 + 1
-                tx4, ty4 = x4 + 1, y4 + 1
-                tx5, ty5 = x5 + 1, y5 + 1
-                if ty3 < c and tx2 < r:  # 동쪽 아래로 이동 가능한 경우
-                    if (graph[tx3][ty3] == 0 and graph[tx2][ty2] == 0 and graph[tx5][ty5] == 0
-                            and graph[tx3 - 1][ty3] == 0 and graph[tx2 - 1][ty2] == 0 and graph[tx5 - 1][ty5] == 0):  # 동쪽 이동 가능
+                    if not inbound(tx1, ty1, tx2, ty2, tx3, ty3, tx4, ty4, tx5, ty5):
+                        continue
+                    if (graph[tx3][ty3] == 0 and graph[tx2][ty2] == 0 and graph[tx5][ty5] == 0 and graph[tx3 - 1][ty3] == 0):  # 동쪽 이동 가능
                         x1, y1 = tx1, ty1
                         x2, y2 = tx2, ty2
                         x3, y3 = tx3, ty3
                         x4, y4 = tx4, ty4
                         x5, y5 = tx5, ty5
-                        di = turnC(di)
-                        direction(x4, y4, di)
-                    else:  # 동쪽 아래로 이동 불가능 한 경우
+                        pick = True
+                    else:
+                        tx1, ty1 = tx1 - 1, ty1 - 1
+                        tx2, ty2 = tx2 - 1, ty2 - 1
+                        tx3, ty3 = tx3 - 1, ty3 - 1
+                        tx4, ty4 = tx4 - 1, ty4 - 1
+                        tx5, ty5 = tx5 - 1, ty5 - 1
+                        di = turnCC(di)
+                        direction(tx4, tx4, di)
                         break
-                else:
-                    break
+            if pick:
+                x1, y1 = tx1, ty1
+                x2, y2 = tx2, ty2
+                x3, y3 = tx3, ty3
+                x4, y4 = tx4, ty4
+                x5, y5 = tx5, ty5
+                break
+            if not pick:
+                break
     if not inbound(x1, y1, x2, y2, x3, y3, x4, y4, x5, y5):
         for i in range(r):
             for j in range(c):
