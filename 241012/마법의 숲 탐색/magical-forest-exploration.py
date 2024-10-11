@@ -72,7 +72,7 @@ for _ in range(k):
             x5, y5 = tx5 + 1, ty5
             continue
         else: # 아래로 내려가는거 불가능
-            if ty1 - 1 > 0: #왼쪽 가능
+            if ty1 - 1 >= 0: #왼쪽 가능
                 if graph[tx1][ty1-1] == 0 and graph[tx2][ty2-1] == 0 and graph[tx5][ty5-1] == 0 and graph[tx1 + 1][ty1 - 1] == 0 and graph[tx2 + 1][ty2 - 1] == 0:
                     x1, y1 = tx1 + 1, ty1 - 1
                     x2, y2 = tx2 + 1, ty2 - 1
