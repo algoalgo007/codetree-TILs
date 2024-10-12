@@ -125,6 +125,8 @@ for _ in range(k):
             else:
                 ans += 1
                 people.append((px, py))
+    if len(people) == 0:
+        break
     # 가장 작은 정사각형 찾기
     square.clear()
     find_square()
